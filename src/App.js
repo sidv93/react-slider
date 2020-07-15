@@ -3,7 +3,9 @@ import styled from 'styled-components';
 import LeftArrow from './assets/arrow-left.svg';
 import RightArrow from './assets/arrow-right.svg';
 import Testimonial from './Testimonial';
+import { motion, AnimatePresence } from 'framer-motion';
 
+const transition = { duration: 2, ease: [0.6, 0.01, -0.05, 0.9] };
 const testimonials = [
   {
     name: "Julia Cameron",
@@ -74,27 +76,62 @@ const Img = styled.img`
 function App() {
   const [active, setActive] = useState(testimonials[0]);
   const [current, setCurrent] = useState(0);
-  setTimeout(() => {
+  const [fade, setFade] = useState(true);
+  const goBack = () => {
+    if (current > 0) {
+      setCurrent(current - 1);
+      setActive(testimonials[current - 1]);
+    } else {
+      setCurrent(2);
+      setActive(testimonials[2]);
+    }
+  }
+  const goForward = () => {
     if(current < 2) {
-      setCurrent(current+1);
-      setActive(testimonials[current+1]);
+      setCurrent(current + 1);
+      setActive(testimonials[current + 1]);
     } else {
       setCurrent(0);
       setActive(testimonials[0]);
     }
-  }, 4000)
+  }
+  
   return (
     <Container>
       <TestimonialContainer>
-        <ArrowContainer>
+        <ArrowContainer onClick={goBack}>
           <Img src={LeftArrow} alt="left arrow" />
         </ArrowContainer>
+        {/* {
+          testimonials.map((testinomial, index) => <Testimonial key={String(index)} testimonial={testimonial} /> )
+        } */}
         <Testimonial testimonial={active} />
-        <ArrowContainer>
+        {/* <Testimonial testimonial={testimonials[0]} active={current === 0} />
+        <Testimonial testimonial={testimonials[1]} active={current === 1} />
+        <Testimonial testimonial={testimonials[2]} active={current === 2} /> */}
+        {/* <AnimatePresence>
+          {fade && <motion.div style={{ flex: 7, backgroundColor: 'red' }} 
+            initial={{
+              x: 100,
+              opacity: 0
+            }}
+            animate={{
+              x: 0,
+              opacity: 1
+            }}
+            exit={{
+              x: -100,
+              opacity: 0
+            }}
+            transition={transition}
+          ></motion.div>}
+          </AnimatePresence> */}
+        <ArrowContainer onClick={goForward}>
           <Img src={RightArrow} alt="right arrow" />
         </ArrowContainer>
       </TestimonialContainer>
     </Container>
+
   );
 }
 

@@ -4,12 +4,12 @@ import { motion, AnimatePresence } from 'framer-motion';
 
 const transition = { duration: 2, ease: [0.6, 0.01, -0.05, 0.9] };
 
-const Container = styled.div`
+const Container = styled(motion.div)`
     flex: 7;
     padding: 20px 30px;
     display: flex;
 `;
-const ImageContainer = styled.div`
+const ImageContainer = styled(motion.div)`
     flex: 2;
     position: relative;
 
@@ -51,30 +51,33 @@ const Title = styled.h6`
     margin: 5px 0;
 `;
 
-const Testimonial = ({ testimonial }) => {
+const Testimonial = ({ testimonial, active }) => {
     return (
         <AnimatePresence>
             <Container>
-                <ImageContainer>
+                <ImageContainer initial={false}>
                     <span style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
                         <AnimatePresence>
                             <Image
                                 key={testimonial.image}
                                 initial={{
                                     x: 100,
-                                    scale: 1.2,
-                                    opacity: 0
+                                    // scale: 1.2,
+                                    opacity: 0,
+                                    transition: {delay:2, ...transition}
                                 }}
                                 animate={{
                                     x: 0,
-                                    scale: 1,
-                                    opacity: 1
+                                    // scale: 1,
+                                    opacity: 1,
+                                    transition: {delay: 2, ...transition}
                                 }}
                                 exit={{
                                     x: -100,
-                                    opacity: 0
+                                    opacity: 0,
+                                    transition:{...transition}
                                 }}
-                                transition={transition}
+                                
                                 src={testimonial.image} alt="image of person" />
                         </AnimatePresence>
                     </span>
