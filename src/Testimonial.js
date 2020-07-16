@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import styled from 'styled-components';
 import { motion, AnimatePresence } from 'framer-motion';
 
-const transition = { duration: 2, ease: [0.6, 0.01, -0.05, 0.9] };
+const transition = { duration: 0.4, ease: [0.6, 0.01, -0.05, 0.9] };
 
 const Container = styled(motion.div)`
     flex: 7;
@@ -51,7 +51,7 @@ const Title = styled.h6`
     margin: 5px 0;
 `;
 
-const Testimonial = ({ testimonial, active }) => {
+const Testimonial = ({ testimonial }) => {
     return (
         <AnimatePresence>
             <Container>
@@ -62,15 +62,15 @@ const Testimonial = ({ testimonial, active }) => {
                                 key={testimonial.image}
                                 initial={{
                                     x: 100,
-                                    // scale: 1.2,
+                                    scale: 1.1,
                                     opacity: 0,
-                                    transition: {delay:2, ...transition}
+                                    transition: {delay:0.4, ...transition}
                                 }}
                                 animate={{
                                     x: 0,
-                                    // scale: 1,
+                                    scale: 1,
                                     opacity: 1,
-                                    transition: {delay: 2, ...transition}
+                                    transition: {delay: 0.4, ...transition}
                                 }}
                                 exit={{
                                     x: -100,
@@ -82,6 +82,7 @@ const Testimonial = ({ testimonial, active }) => {
                         </AnimatePresence>
                     </span>
                 </ImageContainer>
+                <AnimatePresence>
                 <ContentContainer
                     initial={{
                         opacity: 0
@@ -98,6 +99,7 @@ const Testimonial = ({ testimonial, active }) => {
                     <Name>{testimonial.name}</Name>
                     <Title>{testimonial.title}</Title>
                 </ContentContainer>
+                </AnimatePresence>
             </Container>
         </AnimatePresence>
     );

@@ -77,6 +77,7 @@ function App() {
   const [active, setActive] = useState(testimonials[0]);
   const [current, setCurrent] = useState(0);
   const [fade, setFade] = useState(true);
+  const [forward, setForward] = useState(false);
   const goBack = () => {
     if (current > 0) {
       setCurrent(current - 1);
@@ -85,6 +86,7 @@ function App() {
       setCurrent(2);
       setActive(testimonials[2]);
     }
+    setForward(false);
   }
   const goForward = () => {
     if(current < 2) {
@@ -94,6 +96,7 @@ function App() {
       setCurrent(0);
       setActive(testimonials[0]);
     }
+    setForward(true);
   }
   
   return (
@@ -105,7 +108,7 @@ function App() {
         {/* {
           testimonials.map((testinomial, index) => <Testimonial key={String(index)} testimonial={testimonial} /> )
         } */}
-        <Testimonial testimonial={active} />
+        <Testimonial testimonial={active} forward={forward} />
         {/* <Testimonial testimonial={testimonials[0]} active={current === 0} />
         <Testimonial testimonial={testimonials[1]} active={current === 1} />
         <Testimonial testimonial={testimonials[2]} active={current === 2} /> */}
