@@ -51,7 +51,7 @@ const Title = styled.h6`
     margin: 5px 0;
 `;
 
-const Testimonial = ({ testimonial }) => {
+const Testimonial = ({ testimonial, forward }) => {
     return (
         <AnimatePresence>
             <Container>
@@ -61,44 +61,47 @@ const Testimonial = ({ testimonial }) => {
                             <Image
                                 key={testimonial.image}
                                 initial={{
-                                    x: 100,
+                                    x: forward ? -100 : 100,
                                     scale: 1.1,
                                     opacity: 0,
-                                    transition: {delay:0.4, ...transition}
+                                    transition: { delay: 0.4, ...transition }
                                 }}
                                 animate={{
                                     x: 0,
                                     scale: 1,
                                     opacity: 1,
-                                    transition: {delay: 0.4, ...transition}
+                                    transition: { delay: 0.4, ...transition }
                                 }}
                                 exit={{
-                                    x: -100,
+                                    x: forward ? 100 : -100,
                                     opacity: 0,
-                                    transition:{...transition}
+                                    transition: { ...transition }
                                 }}
-                                
+
                                 src={testimonial.image} alt="image of person" />
                         </AnimatePresence>
                     </span>
                 </ImageContainer>
                 <AnimatePresence>
-                <ContentContainer
-                    initial={{
-                        opacity: 0
-                    }}
-                    animate={{
-                        opacity: 1
-                    }}
-                    exit={{
-                        opacity: 0
-                    }}
-                    transition={transition}
-                >
-                    <Quote>{testimonial.quote}</Quote>
-                    <Name>{testimonial.name}</Name>
-                    <Title>{testimonial.title}</Title>
-                </ContentContainer>
+                    <ContentContainer
+                        initial={{
+                            opacity: 0,
+                            x: forward ? -100 : 100,
+                        }}
+                        animate={{
+                            opacity: 1,
+                            x: 0
+                        }}
+                        exit={{
+                            opacity: 0,
+                            x: forward ? -100 : 100,
+                        }}
+                        transition={transition}
+                    >
+                        <Quote>{testimonial.quote}</Quote>
+                        <Name>{testimonial.name}</Name>
+                        <Title>{testimonial.title}</Title>
+                    </ContentContainer>
                 </AnimatePresence>
             </Container>
         </AnimatePresence>
