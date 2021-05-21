@@ -1,15 +1,13 @@
-import React, { useEffect } from 'react';
+import React from 'react';
 import styled from 'styled-components';
-import { motion, AnimatePresence } from 'framer-motion';
 
-const transition = { duration: 0.4, ease: [0.6, 0.01, -0.05, 0.9] };
-
-const Container = styled(motion.div)`
-    flex: 7;
+const Container = styled.div`
     padding: 20px 30px;
     display: flex;
+    align-item: center;
+    justify-content: center;
 `;
-const ImageContainer = styled(motion.div)`
+const ImageContainer = styled.div`
     flex: 2;
     position: relative;
 
@@ -25,12 +23,12 @@ const ImageContainer = styled(motion.div)`
         z-index: -9;
     }
 `;
-const Image = styled(motion.img)`
+const Image = styled.img`
     width: 100%;
     height: 100%;
     object-fit: contain;
 `;
-const ContentContainer = styled(motion.div)`
+const ContentContainer = styled.div`
     flex: 3;
     padding: 0 30px;
     display: flex;
@@ -51,60 +49,23 @@ const Title = styled.h6`
     margin: 5px 0;
 `;
 
-const Testimonial = ({ testimonial, forward }) => {
+const Testimonial = ({ testimonial }) => {
     return (
-        <AnimatePresence>
-            <Container>
-                <ImageContainer initial={false}>
-                    <span style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
-                        <AnimatePresence>
-                            <Image
-                                key={testimonial.image}
-                                initial={{
-                                    x: forward ? -100 : 100,
-                                    scale: 1.1,
-                                    opacity: 0,
-                                    transition: { delay: 0.4, ...transition }
-                                }}
-                                animate={{
-                                    x: 0,
-                                    scale: 1,
-                                    opacity: 1,
-                                    transition: { delay: 0.4, ...transition }
-                                }}
-                                exit={{
-                                    x: forward ? 100 : -100,
-                                    opacity: 0,
-                                    transition: { ...transition }
-                                }}
-
-                                src={testimonial.image} alt="image of person" />
-                        </AnimatePresence>
-                    </span>
-                </ImageContainer>
-                <AnimatePresence>
-                    <ContentContainer
-                        initial={{
-                            opacity: 0,
-                            x: forward ? -100 : 100,
-                        }}
-                        animate={{
-                            opacity: 1,
-                            x: 0
-                        }}
-                        exit={{
-                            opacity: 0,
-                            x: forward ? -100 : 100,
-                        }}
-                        transition={transition}
-                    >
-                        <Quote>{testimonial.quote}</Quote>
-                        <Name>{testimonial.name}</Name>
-                        <Title>{testimonial.title}</Title>
-                    </ContentContainer>
-                </AnimatePresence>
-            </Container>
-        </AnimatePresence>
+        <Container>
+            <ImageContainer initial={false}>
+                <span style={{ overflow: 'hidden', width: '100%', height: '100%' }}>
+                    <Image
+                        key={testimonial.image}
+                        src={testimonial.image} alt="image of person"
+                    />
+                </span>
+            </ImageContainer>
+            <ContentContainer>
+                <Quote>{testimonial.quote}</Quote>
+                <Name>{testimonial.name}</Name>
+                <Title>{testimonial.title}</Title>
+            </ContentContainer>
+        </Container>
     );
 };
 
